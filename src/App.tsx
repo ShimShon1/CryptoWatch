@@ -24,7 +24,7 @@ function App() {
   }, [isDark]);
   return (
     <div
-      className="text-blue-950 dark:text-white min-h-screen   bg-gradient-to-b from-white to-slate-300
+      className="text-blue-950 dark:text-gray-200 min-h-screen   bg-gradient-to-b from-white to-slate-300
      dark:from-slate-900  dark:to-slate-950 "
     >
       <AppContext.Provider value={{ isDark: isDark }}>

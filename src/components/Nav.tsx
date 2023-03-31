@@ -22,13 +22,15 @@ export default function Nav({ setIsDark }: navPropsType) {
   let { isDark }: any = useContext(AppContext);
   return (
     <nav className=" p-4 px-6  flex justify-between items-center w-full relative lg:w-2/3 m-auto font-semibold">
-      <div className="flex items-center gap-2">
-        <img
-          src={isDark ? logoDark : logoLight}
-          className="w-8 h-10 lg:h-12 lg:w-10"
-        />
-        <h1 className="text-xl lg:text-2xl comf font-bold">CryptoWatch</h1>
-      </div>
+      <Link to={"/"}>
+        <div className="flex items-center gap-2">
+          <img
+            src={isDark ? logoDark : logoLight}
+            className="w-8 h-10 lg:h-12 lg:w-10"
+          />
+          <h1 className="text-xl lg:text-2xl comf font-bold">CryptoWatch</h1>
+        </div>
+      </Link>
 
       {/* //dropdown menu */}
       <div onClick={() => setIsOpen(!isOpen)}>
@@ -69,7 +71,7 @@ export default function Nav({ setIsDark }: navPropsType) {
           <NavLink to={"/exchanges"}>Exchanges</NavLink>
         </li>
 
-        <li className="flex gap-3">
+        <li className="flex gap-2">
           <img src={isDark ? favDark : favLight} alt="" />
           <img
             className="cursor-pointer"
