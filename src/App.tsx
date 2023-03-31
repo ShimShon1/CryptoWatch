@@ -1,25 +1,40 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Nav from "./components/Nav";
+import CoinsPage from "./pages/CoinsPage";
+import Coins from "./pages/CoinsPage";
 
-type AppContextType = {
-  light: boolean;
-};
+export type AppContextType = {
+  isDark: boolean;
+} | null;
 
-export const AppContext = createContext({
-  light: false,
-});
+export const AppContext = createContext<AppContextType>(null);
+
 function App() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    console.log("ran");
+    let root = document.querySelector("#root");
+    if (isDark) {
+      root!.className = "dark";
+    } else {
+      root!.className = "";
+    }
+  }, [isDark]);
   return (
-    <div className="text-white min-h-screen">
-      <AppContext.Provider value={{ light: true }}>
-        <header>
-          <Nav />
+    <div
+      className="text-blue-950 dark:text-white min-h-screen   bg-gradient-to-b from-white to-slate-300
+     dark:from-slate-900  dark:to-slate-950 "
+    >
+      <AppContext.Provider value={{ isDark: isDark }}>
+        <header className=" dark:bg-slate-950 bg-white shadow-lg sticky top-0">
+          <Nav setIsDark={setIsDark} />
         </header>
-        <main className=" bg-gradient-to-b from-slate-800 min-h-[90vh]  to-slate-950  p-6 ">
+        <main className="lg:w-2/3 min-h-[90vh] m-auto  p-6 lg:mt-10">
           <Routes>
-            <Route path="/exchanges" element={<h1>EXCHANGESSSSSS</h1>} />
-            <Route path="/" element={<h1>COINSSS</h1>} />
+            <Route path="/exchanges" element={<CoinsPage />} />
+            <Route path="/" element={<CoinsPage />} />
           </Routes>
         </main>
       </AppContext.Provider>
