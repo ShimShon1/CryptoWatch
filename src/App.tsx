@@ -23,6 +23,7 @@ function App() {
         );
         let data = await response.json();
         setCoinsList(data);
+        console.log("i fetcheddd");
       } catch (e) {
         console.error(e);
       }
