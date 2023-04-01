@@ -1,16 +1,29 @@
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
+import CoinTableRow from "../components/CoinTableRow";
 
 export default function CoinsPage() {
   const appContext = useContext(AppContext);
 
   const [searchText, setSearchText] = useState("");
-  console.log(appContext);
+  const [displayedCoins, setDisplayedCoins] = useState([{}]);
+  useEffect(() => {
+    console.log("ran display");
+    let newDisplayList = [];
+    for (let i = 0; i < 50; i++) {
+      newDisplayList.push(appContext?.coinsList[i]!);
+    }
+    setDisplayedCoins(newDisplayList);
+  }, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value);
     setSearchText(e.target.value);
   }
+
+  let coinRowElems = displayedCoins.map((coin) => {
+    return <CoinTableRow coin={coin} />;
+  });
   return (
     <>
       <section className="space-y-8">
@@ -58,27 +71,7 @@ export default function CoinsPage() {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-              <th scope="row" className="  px-6 py-4 font-medium">
-                1{" "}
-              </th>
-              <td className="flex items-center gap-1 px-6 py-4">
-                {" "}
-                <img
-                  className="w-6"
-                  src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579"
-                  alt=""
-                />{" "}
-                BitCoin
-              </td>
-              <td className="px-6 py-4">0.1</td>
-              <td className="px-6 py-4">3.1</td>
-              <td className="px-6 py-4">-2.1</td>
-              <td className="px-6 py-4">1.1</td>
-              <td className="px-6 py-4">$219,716,202,155</td>
-            </tr>
-          </tbody>
+          <tbody>{coinRowElems}</tbody>
         </table>
       </div>
     </>

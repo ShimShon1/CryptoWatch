@@ -14,7 +14,7 @@ export const AppContext = createContext<AppContextType>(null);
 function App() {
   const [isDark, setIsDark] = useState(false);
   const [coinsList, setCoinsList] = useState([{}]);
-  console.log(coinsList, "ma coins are here shawty");
+  // console.log(coinsList, "ma coins are here shawty");
   useEffect(() => {
     async function getCoins() {
       try {
@@ -32,6 +32,7 @@ function App() {
     getCoins();
   }, []);
 
+  console.log(coinsList, "GOTCHA");
   useEffect(() => {
     console.log("ran");
     let root = document.querySelector("#root");
