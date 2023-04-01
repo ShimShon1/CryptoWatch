@@ -1,6 +1,7 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
 import CoinTableRow from "../components/CoinTableRow";
+import searchIcon from "../assets/icons/search.svg";
 
 export default function CoinsPage() {
   const appContext = useContext(AppContext);
@@ -29,21 +30,30 @@ export default function CoinsPage() {
   return (
     <>
       <section className="space-y-8">
-        <h1 className="text-xl font-semibold md:text-2xl lg:text-3xl ">
-          Cryptocurrency Prices by Market Cap
+        <h1 className="mb-4 text-xl font-semibold md:text-2xl lg:text-3xl">
+          Cryptocurrency Prices By Current Market Cap
         </h1>
 
-        <input
-          type="text"
-          placeholder="Search"
-          className="rounded-md bg-slate-200 indent-2 md:text-lg lg:w-80"
-          onChange={(e) => handleChange(e)}
-          value={searchText}
-        />
+        <label className="relative ">
+          <img
+            className="absolute left-2 w-5 translate-y-2.5 transform  opacity-40"
+            src={searchIcon}
+            alt=""
+          />
+          <input
+            type="text"
+            placeholder="Search"
+            className={`w-full rounded-md bg-slate-100 bg-left p-2 indent-6 md:text-lg
+         	
+          `}
+            onChange={(e) => handleChange(e)}
+            value={searchText}
+          />
+        </label>
       </section>
 
-      <div className="relative mt-6  overflow-scroll">
-        <table className="max-w-full text-left text-sm  ">
+      <div className="relative mt-6  overflow-x-auto">
+        <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
               <th scope="col" className="px-6 py-3">

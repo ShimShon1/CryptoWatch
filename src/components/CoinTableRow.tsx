@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import TimeTd from "./TimeTd";
 
 export default function CoinTableRow({ coin }: any) {
@@ -13,9 +14,10 @@ export default function CoinTableRow({ coin }: any) {
         <th scope="row" className="  px-6 py-4 font-medium">
           {coin.market_cap_rank}
         </th>
-        <td className="flex items-center gap-2 px-6 py-4 font-semibold">
-          {" "}
-          <img className="w-6" src={coin.image} alt="" /> {coin.name}
+        <td className="px-6 py-4 font-semibold tracking-wide">
+          <Link className="flex items-center gap-2" to={coin.id}>
+            <img className="w-6" src={coin.image} alt="" /> {coin.name}
+          </Link>
         </td>
         <td className="px-6 py-4">${formatNum(coin.current_price)}</td>
         <td className="px-6 py-4  ">
