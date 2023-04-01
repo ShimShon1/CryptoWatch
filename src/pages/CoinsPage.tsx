@@ -4,7 +4,7 @@ import CoinTableRow from "../components/CoinTableRow";
 
 export default function CoinsPage() {
   const appContext = useContext(AppContext);
-
+  console.log(appContext, "contextttttttttttttttt");
   const [searchText, setSearchText] = useState("");
   const [displayedCoins, setDisplayedCoins] = useState([{}]);
   useEffect(() => {
@@ -14,16 +14,18 @@ export default function CoinsPage() {
       newDisplayList.push(appContext?.coinsList[i]!);
     }
     setDisplayedCoins(newDisplayList);
-  }, []);
+  }, [appContext?.coinsList]);
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value);
     setSearchText(e.target.value);
   }
 
-  let coinRowElems = displayedCoins.map((coin) => {
+  let coinRowElems = displayedCoins.map((coin: any) => {
     return <CoinTableRow coin={coin} />;
   });
+
+  console.log(displayedCoins);
   return (
     <>
       <section className="space-y-8">
@@ -40,7 +42,7 @@ export default function CoinsPage() {
         />
       </section>
 
-      <div className="relative mt-6 overflow-x-auto">
+      <div className="relative mt-6 ">
         <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
@@ -71,7 +73,7 @@ export default function CoinsPage() {
               </th>
             </tr>
           </thead>
-          <tbody>{coinRowElems}</tbody>
+          <tbody>{coinRowElems || ""}</tbody>
         </table>
       </div>
     </>
