@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { AppContext } from "../App";
 
 export default function CoinsPage() {
@@ -7,7 +7,7 @@ export default function CoinsPage() {
   const [searchText, setSearchText] = useState("");
   console.log(appContext);
 
-  function handleChange(e) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     console.log(e.target.value);
     setSearchText(e.target.value);
   }
