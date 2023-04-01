@@ -48,10 +48,10 @@ function App() {
      dark:to-slate-950  dark:text-gray-200 "
     >
       <AppContext.Provider value={{ isDark: isDark, coinsList: coinsList }}>
-        <header className=" sticky top-0 z-10 bg-white shadow-lg dark:bg-slate-950">
+        <header className=" sticky top-0 z-10 w-screen bg-white shadow-lg dark:bg-slate-950">
           <Nav setIsDark={setIsDark} />
         </header>
-        <main className=" z-1 m-auto min-h-[90vh] p-6  lg:mt-6 lg:w-2/3">
+        <main className=" z-1 p-6  lg:m-auto  lg:mt-4 lg:w-2/3">
           <Routes>
             <Route path="/exchanges" element={<CoinsPage />} />
             <Route path="/" element={<CoinsPage />} />

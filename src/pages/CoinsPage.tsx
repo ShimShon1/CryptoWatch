@@ -42,8 +42,8 @@ export default function CoinsPage() {
         />
       </section>
 
-      <div className="relative mt-6 ">
-        <table className="w-full text-left text-sm  ">
+      <div className="relative mt-6  overflow-scroll">
+        <table className="max-w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -60,15 +60,15 @@ export default function CoinsPage() {
                 1hr
               </th>
 
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
                 24hr
               </th>
 
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
                 7d
               </th>
 
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="  hidden px-6   py-3 md:table-cell">
                 marketcap
               </th>
             </tr>

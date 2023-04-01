@@ -17,12 +17,19 @@ export default function CoinTableRow({ coin }: any) {
           {" "}
           <img className="w-6" src={coin.image} alt="" /> {coin.name}
         </td>
-        <td className="px-6 py-4">${formatNum(coin?.current_price)}</td>
-
-        <td className="px-6 py-4">${formatNum(coin.market_cap)}</td>
-        <TimeTd num={coin.price_change_percentage_1h_in_currency} />
-        <TimeTd num={coin.price_change_percentage_24h_in_currency} />
-        <TimeTd num={coin.price_change_percentage_7d_in_currency} />
+        <td className="px-6 py-4">${formatNum(coin.current_price)}</td>
+        <td className="px-6 py-4  ">
+          <TimeTd num={coin.price_change_percentage_1h_in_currency} />
+        </td>
+        <td className="hidden px-6 py-4 md:table-cell ">
+          <TimeTd num={coin.price_change_percentage_24h_in_currency} />
+        </td>
+        <td className="hidden px-6 py-4 md:table-cell ">
+          <TimeTd num={coin.price_change_percentage_7d_in_currency} />
+        </td>
+        <td className=" hidden px-6  py-4 md:table-cell">
+          ${formatNum(coin.market_cap)}
+        </td>
       </tr>
     )
   );
