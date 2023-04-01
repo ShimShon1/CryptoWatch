@@ -6,12 +6,30 @@ import Coins from "./pages/CoinsPage";
 
 export type AppContextType = {
   isDark: boolean;
+  coinsList: object[];
 } | null;
 
 export const AppContext = createContext<AppContextType>(null);
 
 function App() {
   const [isDark, setIsDark] = useState(false);
+  const [coinsList, setCoinsList] = useState([{}]);
+  console.log(coinsList, "ma coins are here shawty");
+  useEffect(() => {
+    async function getCoins() {
+      try {
+        let response = await fetch(
+          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en"
+        );
+        let data = await response.json();
+        setCoinsList(data);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    getCoins();
+  }, []);
 
   useEffect(() => {
     console.log("ran");
@@ -24,14 +42,14 @@ function App() {
   }, [isDark]);
   return (
     <div
-      className="text-blue-950 dark:text-gray-200 min-h-screen   bg-gradient-to-b from-white to-slate-300
-     dark:from-slate-900  dark:to-slate-950 "
+      className="min-h-screen bg-gradient-to-b from-white   to-slate-300 text-blue-950 dark:from-slate-900
+     dark:to-slate-950  dark:text-gray-200 "
     >
-      <AppContext.Provider value={{ isDark: isDark }}>
-        <header className=" dark:bg-slate-950 bg-white shadow-lg sticky top-0">
+      <AppContext.Provider value={{ isDark: isDark, coinsList: coinsList }}>
+        <header className=" sticky top-0 bg-white shadow-lg dark:bg-slate-950">
           <Nav setIsDark={setIsDark} />
         </header>
-        <main className="lg:w-2/3 min-h-[90vh] m-auto  p-6 lg:mt-10">
+        <main className="m-auto min-h-[90vh] p-6  lg:mt-6 lg:w-2/3">
           <Routes>
             <Route path="/exchanges" element={<CoinsPage />} />
             <Route path="/" element={<CoinsPage />} />

@@ -21,14 +21,14 @@ export default function Nav({ setIsDark }: navPropsType) {
   const [isOpen, setIsOpen] = useState(false);
   let { isDark }: any = useContext(AppContext);
   return (
-    <nav className=" p-4 px-6  flex justify-between items-center w-full relative lg:w-2/3 m-auto font-semibold">
+    <nav className=" relative m-auto  flex w-full items-center justify-between p-4 px-6 font-semibold lg:w-2/3">
       <Link to={"/"}>
         <div className="flex items-center gap-2">
           <img
             src={isDark ? logoDark : logoLight}
-            className="w-8 h-10 lg:h-12 lg:w-10"
+            className="h-10 w-8 lg:h-12 lg:w-10"
           />
-          <h1 className="text-xl lg:text-2xl comf font-bold">CryptoWatch</h1>
+          <h1 className="comf text-xl font-bold lg:text-2xl">CryptoWatch</h1>
         </div>
       </Link>
 
@@ -41,7 +41,7 @@ export default function Nav({ setIsDark }: navPropsType) {
         <ul
           className={`${
             isOpen ? "visible" : "hidden"
-          }  dark:bg-slate-900 bg-slate-200 absolute px-20 py-4 space-y-4 text-lg bottom-0 top-full left-0 w-screen h-fit transition-all`}
+          }  absolute bottom-0 left-0 top-full h-fit w-screen space-y-4 bg-slate-200 px-20 py-4 text-lg transition-all dark:bg-slate-900`}
         >
           <li>
             <NavLink to={"/"}>Coins</NavLink>
@@ -63,7 +63,7 @@ export default function Nav({ setIsDark }: navPropsType) {
       </div>
 
       {/* large menu */}
-      <ul className="hidden lg:flex gap-7 text-lg items-center justify-around">
+      <ul className="hidden items-center justify-around gap-7 text-lg lg:flex">
         <li>
           <NavLink to={"/"}>Coins</NavLink>
         </li>
