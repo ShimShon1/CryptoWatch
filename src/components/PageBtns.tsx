@@ -13,7 +13,6 @@ export default function PageBtns({
   function createBtns() {
     let arr = [];
     for (let i = 0; i < Math.ceil(currentList.length / 50); i++) {
-      console.log(i, currentPage);
       arr.push(
         <a
           href="#section-top"
@@ -21,9 +20,9 @@ export default function PageBtns({
             currentPage == i + 1
               ? "cursor-default bg-gray-400"
               : " bg-gray-200 dark:bg-gray-800"
-          } p-1 px-2.5
-            text-lg 
-            font-semibold shadow-sm hover:bg-gray-300 dark:border-gray-200  hover:dark:bg-gray-600`}
+          } rounded-sm p-1
+            px-3 
+            text-lg font-semibold shadow-sm hover:bg-gray-300 dark:border-gray-200  hover:dark:bg-gray-600`}
           onClick={() => flipPage(i + 1)}
         >
           {i + 1}

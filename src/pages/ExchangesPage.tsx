@@ -1,23 +1,25 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { formatNum } from "../util/nums";
 import { AppContext } from "../App";
 import CoinTableRow from "../components/CoinTableRow";
 import PageBtns from "../components/PageBtns";
 import PageTitle from "../components/PageTitle";
 import SearchBar from "../components/SearchBar";
 
-export default function CoinsPage() {
+export default function ExchangesPage() {
   const appContext = useContext(AppContext);
-  const [displayedCoins, setDisplayedCoins] = useState([{}]);
-  const [currentCoins, setCurrentCoins] = useState([{}]);
+  const [displayedExchanges, setDisplayedExchanges]: any = useState([{}]);
+  const [currentExchanges, setCurrentExchanges]: any = useState([{}]);
   const [currentPage, setCurrentPage] = useState(1);
 
   function flipPage(page: number) {
-    displayPage(currentCoins.length, currentCoins, page);
+    displayPage(currentExchanges.length, currentExchanges, page);
   }
 
-  function displayPage(num = 50, arr = appContext?.coinsList, page = 1) {
+  function displayPage(num = 50, arr = appContext?.exchangesList, page = 1) {
     setCurrentPage(page);
-    arr && setCurrentCoins(arr);
+    arr && setCurrentExchanges(arr);
     let start = 50 * (page - 1);
     let end = num >= 50 ? 50 : num;
     end = end * page;
@@ -25,22 +27,39 @@ export default function CoinsPage() {
     for (let i = start; i < end; i++) {
       arr !== undefined && newDisplayList.push(arr[i]);
     }
-    setDisplayedCoins(newDisplayList);
+    setDisplayedExchanges(newDisplayList);
   }
-  //initialaize first 50 coins
+  //initialaize first 50 exchanges
   useEffect(() => {
     console.log("ran display");
     displayPage();
-  }, [appContext?.coinsList]);
+  }, [appContext?.exchangesList]);
 
-  let coinRowElems = displayedCoins.map((coin: any) => {
-    return <CoinTableRow coin={coin} />;
+  let ExchangeRowElems = displayedExchanges.map((exc: any) => {
+    return (
+      <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+        <th scope="row" className="  px-6 py-4 font-medium">
+          {exc.trust_score_rank}
+        </th>
+        <td className="  px-6 py-4 font-semibold tracking-wide">
+          <a href={exc.url} target="_blank" className="flex items-center gap-2">
+            <img className="w-6" src={exc.image} alt="" /> {exc.name}
+          </a>
+        </td>
+        <td className="px-6 py-4 font-semibold">{exc.trust_score}</td>
+        <td className="px-6 py-4">${formatNum(exc.trade_volume_24h_btc)}</td>
+
+        <td className=" hidden px-6  py-4 md:table-cell">
+          {exc.year_established}
+        </td>
+      </tr>
+    );
   });
 
   return (
     <>
       <section className="space-y-8" id="section-top">
-        <PageTitle> Cryptocurrency Prices By Current Market Cap</PageTitle>
+        <PageTitle> Top Crypto Exchanges Ranked By Trust Score</PageTitle>
 
         <SearchBar displayPage={displayPage} />
       </section>
@@ -57,31 +76,23 @@ export default function CoinsPage() {
                 name
               </th>
               <th scope="col" className="px-6 py-3">
-                Price
+                Trust Score
               </th>
               <th scope="col" className="px-6 py-3">
-                1hr
+                Trade Volume (24hr)
               </th>
 
               <th scope="col" className=" hidden px-6 py-3 md:table-cell">
-                24hr
-              </th>
-
-              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
-                7d
-              </th>
-
-              <th scope="col" className="  hidden px-6   py-3 md:table-cell">
-                marketcap
+                Since
               </th>
             </tr>
           </thead>
-          <tbody>{coinRowElems || ""}</tbody>
+          <tbody>{ExchangeRowElems}</tbody>
         </table>
       </div>
 
       <PageBtns
-        currentList={currentCoins}
+        currentList={currentExchanges}
         displayPage={displayPage}
         currentPage={currentPage}
       />

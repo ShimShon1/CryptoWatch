@@ -15,7 +15,7 @@ export default function CoinTableRow({ coin }: any) {
           {coin.market_cap_rank}
         </th>
         <td className="px-6 py-4 font-semibold tracking-wide">
-          <Link className="flex items-center gap-2" to={coin.id}>
+          <Link className="flex items-center gap-2" to={"/coin/" + coin.id}>
             <img className="w-6" src={coin.image} alt="" /> {coin.name}
           </Link>
         </td>
