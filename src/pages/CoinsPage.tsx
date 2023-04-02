@@ -1,20 +1,32 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
 import CoinTableRow from "../components/CoinTableRow";
+import PageBtns from "../components/PageBtns";
 import SearchBar from "../components/SearchBar";
 
 export default function CoinsPage() {
   const appContext = useContext(AppContext);
   const [displayedCoins, setDisplayedCoins] = useState([{}]);
+  const [currentCoins, setCurrentCoins] = useState([{}]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  //initialaize first 50 coins
-  function displayPage(num = 50, arr = appContext?.coinsList) {
+  function flipPage(page: number) {
+    displayPage(currentCoins.length, currentCoins, page);
+  }
+
+  function displayPage(num = 50, arr = appContext?.coinsList, page = 1) {
+    setCurrentPage(page);
+    arr && setCurrentCoins(arr);
+    let start = 50 * (page - 1);
+    let end = num >= 50 ? 50 : num;
+    end = end * page;
     let newDisplayList = [];
-    for (let i = 0; i < num; i++) {
+    for (let i = start; i < end; i++) {
       arr !== undefined && newDisplayList.push(arr[i]);
     }
     setDisplayedCoins(newDisplayList);
   }
+  //initialaize first 50 coins
   useEffect(() => {
     console.log("ran display");
     displayPage();
@@ -26,7 +38,7 @@ export default function CoinsPage() {
 
   return (
     <>
-      <section className="space-y-8">
+      <section className="space-y-8" id="section-top">
         <h1 className="mb-4 text-xl font-semibold md:text-2xl lg:text-3xl">
           Cryptocurrency Prices By Current Market Cap
         </h1>
@@ -34,7 +46,7 @@ export default function CoinsPage() {
         <SearchBar displayPage={displayPage} />
       </section>
 
-      <div className="relative mt-6  overflow-x-auto">
+      <div className="relative mt-6 w-full overflow-x-auto" id="table">
         <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
@@ -68,6 +80,12 @@ export default function CoinsPage() {
           <tbody>{coinRowElems || ""}</tbody>
         </table>
       </div>
+
+      <PageBtns
+        currentList={currentCoins}
+        displayPage={displayPage}
+        currentPage={currentPage}
+      />
     </>
   );
 }
