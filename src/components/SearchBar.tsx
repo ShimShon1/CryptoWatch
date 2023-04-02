@@ -1,17 +1,27 @@
 import React, { useContext, useState } from "react";
-import { AppContext } from "../App";
+import { useParams } from "react-router-dom";
+import { AppContext, AppContextType } from "../App";
 import searchIcon from "../assets/icons/search.svg";
 type SearchBarPropsType = {
   displayPage: (num?: number, arr?: object[]) => void;
+  target: string;
 };
-export default function SearchBar({ displayPage }: SearchBarPropsType) {
+export default function SearchBar({ displayPage, target }: SearchBarPropsType) {
   const [searchText, setSearchText] = useState("");
   const appContext = useContext(AppContext);
+  if (appContext == undefined) return <h1>Something Went Wrong</h1>;
 
+  let originArr: object[];
+  target == "coins"
+    ? (originArr = appContext.coinsList)
+    : (originArr = appContext.exchangesList);
+
+  let path = useParams();
+  console.log(path, "aaaaa");
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchText(e.target.value);
     let search = e.target.value.toLowerCase();
-    let filteredArr = appContext?.coinsList.filter((coin: any) => {
+    let filteredArr = originArr.filter((coin: any) => {
       let name = coin.name.substring(0, search.length).toLowerCase();
       return search === name;
     });

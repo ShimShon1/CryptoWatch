@@ -6,6 +6,7 @@ import CoinTableRow from "../components/CoinTableRow";
 import PageBtns from "../components/PageBtns";
 import PageTitle from "../components/PageTitle";
 import SearchBar from "../components/SearchBar";
+import ExchangeTableRow from "../components/ExchangeTableRow";
 
 export default function ExchangesPage() {
   const appContext = useContext(AppContext);
@@ -36,24 +37,8 @@ export default function ExchangesPage() {
   }, [appContext?.exchangesList]);
 
   let ExchangeRowElems = displayedExchanges.map((exc: any) => {
-    return (
-      <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
-        <th scope="row" className="  px-6 py-4 font-medium">
-          {exc.trust_score_rank}
-        </th>
-        <td className="  px-6 py-4 font-semibold tracking-wide">
-          <a href={exc.url} target="_blank" className="flex items-center gap-2">
-            <img className="w-6" src={exc.image} alt="" /> {exc.name}
-          </a>
-        </td>
-        <td className="px-6 py-4 font-semibold">{exc.trust_score}</td>
-        <td className="px-6 py-4">${formatNum(exc.trade_volume_24h_btc)}</td>
-
-        <td className=" hidden px-6  py-4 md:table-cell">
-          {exc.year_established}
-        </td>
-      </tr>
-    );
+    if (exc === undefined) return;
+    return <ExchangeTableRow exc={exc} />;
   });
 
   return (
@@ -61,7 +46,7 @@ export default function ExchangesPage() {
       <section className="space-y-8" id="section-top">
         <PageTitle> Top Crypto Exchanges Ranked By Trust Score</PageTitle>
 
-        <SearchBar displayPage={displayPage} />
+        <SearchBar displayPage={displayPage} target="exchanges" />
       </section>
 
       <div className="relative mt-6 w-full overflow-x-auto" id="table">

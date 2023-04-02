@@ -1,13 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { formatNum } from "../util/nums";
 import TimeTd from "./TimeTd";
 
 export default function CoinTableRow({ coin }: any) {
-  function formatNum(num: number | undefined) {
-    if (num !== undefined) {
-      return num.toLocaleString();
-    }
-  }
   return (
     coin && (
       <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">

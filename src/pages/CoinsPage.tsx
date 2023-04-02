@@ -42,7 +42,7 @@ export default function CoinsPage() {
       <section className="space-y-8" id="section-top">
         <PageTitle> Cryptocurrency Prices By Current Market Cap</PageTitle>
 
-        <SearchBar displayPage={displayPage} />
+        <SearchBar displayPage={displayPage} target={"coins"} />
       </section>
 
       <div className="relative mt-6 w-full overflow-x-auto" id="table">
