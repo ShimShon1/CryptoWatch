@@ -2,6 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+ul > li > a {
+  transition: all 0.2s;
+  padding-bottom: 4px;
+  border-bottom: 0px solid rgb(90, 90, 90);
+}
+
+ul > li > a:hover {
+  border-bottom: 1px solid rgb(90, 90, 90);
+}
+
+.active {
+  color: rgb(76, 86, 110);
+}
+
 :root {
   font-family: "Roboto", sans-serif;
 }

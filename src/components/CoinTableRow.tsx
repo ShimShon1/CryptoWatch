@@ -5,7 +5,7 @@ import TimeTd from "./TimeTd";
 
 export default function CoinTableRow({ coin }: any) {
   return (
-    <tr className="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+    <tr className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
       <th scope="row" className="  px-6 py-4 font-medium">
         {coin.market_cap_rank}
       </th>
