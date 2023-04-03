@@ -17,7 +17,6 @@ export default function SearchBar({ displayPage, target }: SearchBarPropsType) {
     : (originArr = appContext.exchangesList);
 
   let path = useParams();
-  console.log(path, "aaaaa");
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchText(e.target.value);
     let search = e.target.value.toLowerCase();

@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import CoinsPage from "./pages/CoinsPage";
 import Coins from "./pages/CoinsPage";
 import ExchangesPage from "./pages/ExchangesPage";
+import SingleCoinPage from "./pages/SingleCoinPage";
 
 export type AppContextType = {
   isDark: boolean;
@@ -33,9 +34,6 @@ function App() {
 
         setCoinsList(data[0]);
         setExchangesList(data[1]);
-
-        console.log(data[1]);
-        console.log("i fetcheddd");
       } catch (e) {
         console.error(e);
       }
@@ -44,9 +42,7 @@ function App() {
     getCoins();
   }, []);
 
-  console.log(coinsList, "GOTCHA");
   useEffect(() => {
-    console.log("ran");
     let root = document.querySelector("#root");
     if (isDark) {
       root!.className = "dark";
@@ -73,7 +69,7 @@ function App() {
           <Routes>
             <Route path="/" element={<CoinsPage />} />
             <Route path="/exchanges" element={<ExchangesPage />} />
-            <Route path="/coin/:id" element={<h1>Coin Here</h1>} />
+            <Route path="/coin/:id" element={<SingleCoinPage />} />
           </Routes>
         </main>
       </AppContext.Provider>

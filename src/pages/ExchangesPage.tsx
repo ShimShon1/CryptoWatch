@@ -1,8 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { formatNum } from "../util/nums";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../App";
-import CoinTableRow from "../components/CoinTableRow";
 import PageBtns from "../components/PageBtns";
 import PageTitle from "../components/PageTitle";
 import SearchBar from "../components/SearchBar";
@@ -32,7 +29,6 @@ export default function ExchangesPage() {
   }
   //initialaize first 50 exchanges
   useEffect(() => {
-    console.log("ran display");
     displayPage();
   }, [appContext?.exchangesList]);
 
@@ -67,7 +63,7 @@ export default function ExchangesPage() {
                 Trade Volume (24hr)
               </th>
 
-              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
+              <th scope="col" className=" px-6 py-3 ">
                 Since
               </th>
             </tr>

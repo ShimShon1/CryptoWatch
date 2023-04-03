@@ -15,9 +15,7 @@ export default function ExchangeTableRow({ exc }: any) {
       <td className="px-6 py-4 font-semibold">{exc.trust_score}</td>
       <td className="px-6 py-4">${formatNum(exc.trade_volume_24h_btc)}</td>
 
-      <td className=" hidden px-6  py-4 md:table-cell">
-        {exc.year_established}
-      </td>
+      <td className="  px-6  py-4 ">{exc.year_established}</td>
     </tr>
   );
 }

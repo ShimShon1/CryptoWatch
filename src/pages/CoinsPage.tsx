@@ -29,11 +29,11 @@ export default function CoinsPage() {
   }
   //initialaize first 50 coins
   useEffect(() => {
-    console.log("ran display");
     displayPage();
   }, [appContext?.coinsList]);
 
   let coinRowElems = displayedCoins.map((coin: any) => {
+    if (coin === undefined) return;
     return <CoinTableRow coin={coin} />;
   });
 
@@ -63,15 +63,15 @@ export default function CoinsPage() {
                 1hr
               </th>
 
-              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
+              <th scope="col" className="  px-6 py-3 md:table-cell">
                 24hr
               </th>
 
-              <th scope="col" className=" hidden px-6 py-3 md:table-cell">
+              <th scope="col" className="  px-6 py-3 md:table-cell">
                 7d
               </th>
 
-              <th scope="col" className="  hidden px-6   py-3 md:table-cell">
+              <th scope="col" className="   px-6   py-3 md:table-cell">
                 marketcap
               </th>
             </tr>
