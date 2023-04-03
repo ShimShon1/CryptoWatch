@@ -34,7 +34,7 @@ export default function CoinsPage() {
 
   let coinRowElems = displayedCoins.map((coin: any) => {
     if (coin === undefined) return;
-    return <CoinTableRow coin={coin} />;
+    return <CoinTableRow coin={coin} key={coin.id} />;
   });
 
   return (
@@ -76,7 +76,7 @@ export default function CoinsPage() {
               </th>
             </tr>
           </thead>
-          <tbody>{coinRowElems || ""}</tbody>
+          <tbody>{coinRowElems}</tbody>
         </table>
       </div>
 

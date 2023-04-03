@@ -1,12 +1,9 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AppContext } from "../App";
 import TimeChangeBox from "../components/TimeChangeBox";
-import TimeTd from "../components/TimeTd";
 import { formatNum } from "../util/nums";
 
 export default function SingleCoinPage() {
-  let coinsList: any = useContext(AppContext)?.coinsList;
   let pathId = useParams().id;
 
   let [currentCoin, setCurrentCoin] = useState<any>(null);
@@ -22,6 +19,31 @@ export default function SingleCoinPage() {
 
     getCoin();
   }, []);
+
+  function createTimeChangeBoxes() {
+    let timeVars = [
+      [
+        "1h",
+        currentCoin.market_data.price_change_percentage_1h_in_currency.usd,
+      ],
+      ["24h", currentCoin.market_data.price_change_percentage_24h],
+      ["7d", currentCoin.market_data.price_change_percentage_7d],
+      ["14d", currentCoin.market_data.price_change_percentage_14d],
+      ["30d", currentCoin.market_data.price_change_percentage_30d],
+      ["60d", currentCoin.market_data.price_change_percentage_60d],
+
+      ["200d", currentCoin.market_data.price_change_percentage_200d],
+      ["1y", currentCoin.market_data.price_change_percentage_1y],
+    ];
+
+    return timeVars.map((time) => {
+      return (
+        <TimeChangeBox key={time[0]} num={time[1]}>
+          {time[0]}
+        </TimeChangeBox>
+      );
+    });
+  }
 
   let descHtml = { __html: "placeholder" };
   if (currentCoin !== null) {
@@ -62,48 +84,7 @@ export default function SingleCoinPage() {
         <hr />
         <h2 className=" text-xl font-medium">Price Changes In The Last</h2>
         <div className="mt-4 grid grid-cols-2 gap-2 md:grid-cols-3 lg:grid-cols-4">
-          <TimeChangeBox
-            num={
-              currentCoin.market_data.price_change_percentage_1h_in_currency.usd
-            }
-          >
-            1h
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_24h}
-          >
-            24h
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_7d}
-          >
-            7d
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_14d}
-          >
-            14d
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_30d}
-          >
-            30d
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_60d}
-          >
-            60d
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_200d}
-          >
-            200d
-          </TimeChangeBox>
-          <TimeChangeBox
-            num={currentCoin.market_data.price_change_percentage_1y}
-          >
-            1y
-          </TimeChangeBox>
+          {createTimeChangeBoxes()}
         </div>
         <hr />
       </section>

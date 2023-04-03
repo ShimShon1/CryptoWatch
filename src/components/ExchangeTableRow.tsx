@@ -1,4 +1,3 @@
-import React from "react";
 import { formatNum } from "../util/nums";
 
 export default function ExchangeTableRow({ exc }: any) {

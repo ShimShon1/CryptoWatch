@@ -15,6 +15,7 @@ export default function PageBtns({
     for (let i = 0; i < Math.ceil(currentList.length / 50); i++) {
       arr.push(
         <a
+          key={i}
           href="#section-top"
           className={` border border-blue-800 border-opacity-60 ${
             currentPage == i + 1
