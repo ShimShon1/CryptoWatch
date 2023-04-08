@@ -19,25 +19,31 @@ export type AppContextType = {
 export const AppContext = createContext<AppContextType>(null);
 
 function App() {
+  // console.log(localStorage.getItem("favs"));
+
   const [isDark, setIsDark] = useState(false);
   const [coinsList, setCoinsList] = useState([{}]);
   const [exchangesList, setExchangesList] = useState([{}]);
-  const [favsList, setFavsList]: any = useState([]);
+  const [favsList, setFavsList]: any = useState([
+    ...(JSON.parse(localStorage.getItem("favs")!) || []),
+  ]);
 
+  console.log(favsList);
   function addToFavs(coin: any) {
-    console.log(coin);
+    let newFavs = [...favsList, coin];
+    setFavsList(newFavs);
 
-    setFavsList([...favsList, coin]);
+    localStorage.setItem("favs", JSON.stringify(newFavs));
   }
 
   function removeFromFavs(coin: any) {
-    setFavsList(
-      favsList.filter((favCoin: any) => {
-        return favCoin.id !== coin.id;
-      })
-    );
+    let newFavs = favsList.filter((favCoin: any) => {
+      return favCoin.id !== coin.id;
+    });
+    setFavsList(newFavs);
+
+    localStorage.setItem("favs", JSON.stringify(newFavs));
   }
-  console.log(favsList);
 
   useEffect(() => {
     async function getCoins() {
