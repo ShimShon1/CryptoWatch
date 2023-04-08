@@ -51,7 +51,9 @@ export default function Nav({ setIsDark }: navPropsType) {
           </li>
 
           <li className="flex gap-3">
-            <img src={isDark ? favDark : favLight} alt="" />
+            <Link to={"/favorites"}>
+              <img src={isDark ? favDark : favLight} alt="" />
+            </Link>
             <img
               className="cursor-pointer"
               onClick={() => setIsDark(!isDark)}
@@ -71,8 +73,10 @@ export default function Nav({ setIsDark }: navPropsType) {
           <NavLink to={"/exchanges"}>Exchanges</NavLink>
         </li>
 
-        <li className="flex gap-2">
-          <img src={isDark ? favDark : favLight} alt="" />
+        <li className="flex items-center gap-2">
+          <Link to={"/favorites"} className="inline-block p-0 ">
+            <img src={isDark ? favDark : favLight} alt="" />
+          </Link>
           <img
             className="cursor-pointer"
             onClick={() => setIsDark(!isDark)}

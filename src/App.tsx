@@ -4,12 +4,16 @@ import Nav from "./components/Nav";
 import CoinsPage from "./pages/CoinsPage";
 import Coins from "./pages/CoinsPage";
 import ExchangesPage from "./pages/ExchangesPage";
+import Favorites from "./pages/Favorites";
 import SingleCoinPage from "./pages/SingleCoinPage";
 
 export type AppContextType = {
   isDark: boolean;
   coinsList: object[];
   exchangesList: object[];
+  addToFavs: (coin: any) => void;
+  removeFromFavs: (coin: any) => void;
+  favsList: object[];
 } | null;
 
 export const AppContext = createContext<AppContextType>(null);
@@ -18,6 +22,22 @@ function App() {
   const [isDark, setIsDark] = useState(false);
   const [coinsList, setCoinsList] = useState([{}]);
   const [exchangesList, setExchangesList] = useState([{}]);
+  const [favsList, setFavsList]: any = useState([]);
+
+  function addToFavs(coin: any) {
+    console.log(coin);
+
+    setFavsList([...favsList, coin]);
+  }
+
+  function removeFromFavs(coin: any) {
+    setFavsList(
+      favsList.filter((favCoin: any) => {
+        return favCoin.id !== coin.id;
+      })
+    );
+  }
+  console.log(favsList);
 
   useEffect(() => {
     async function getCoins() {
@@ -60,6 +80,9 @@ function App() {
           isDark: isDark,
           coinsList: coinsList,
           exchangesList: exchangesList,
+          addToFavs: addToFavs,
+          favsList: favsList,
+          removeFromFavs: removeFromFavs,
         }}
       >
         <header className=" sticky top-0 z-10  bg-white shadow-lg dark:bg-slate-950">
@@ -69,6 +92,8 @@ function App() {
           <Routes>
             <Route path="/" element={<CoinsPage />} />
             <Route path="/exchanges" element={<ExchangesPage />} />
+            <Route path="/favorites" element={<Favorites />} />
+
             <Route path="/coin/:id" element={<SingleCoinPage />} />
           </Routes>
         </main>
