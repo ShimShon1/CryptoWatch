@@ -8,7 +8,7 @@ import TimeTd from "./TimeTd";
 export default function CoinTableRow({ coin }: any) {
   return (
     <tr className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-       <th scope="row" className=" items-center px-4 py-4 font-medium">
+       <th scope="row" className=" items-center px-4 py-4 font-medium ">
         <FavIcon coin={coin} />
       </th>
       <th scope="row" className=" items-center px-6 py-4 font-medium">
