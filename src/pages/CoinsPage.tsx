@@ -49,6 +49,9 @@ export default function CoinsPage() {
         <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
+            <th scope="col" className="px-6 py-3">
+                
+              </th>
               <th scope="col" className="px-6 py-3">
                 #
               </th>
@@ -63,15 +66,15 @@ export default function CoinsPage() {
                 1hr
               </th>
 
-              <th scope="col" className="  px-6 py-3 md:table-cell">
+              <th scope="col" className="  px-6 py-3 ">
                 24hr
               </th>
 
-              <th scope="col" className="  px-6 py-3 md:table-cell">
+              <th scope="col" className="  px-6 py-3 ">
                 7d
               </th>
 
-              <th scope="col" className="   px-6   py-3 md:table-cell">
+              <th scope="col" className="   px-6   py-3 ">
                 marketcap
               </th>
             </tr>

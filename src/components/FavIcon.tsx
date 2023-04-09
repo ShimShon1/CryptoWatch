@@ -13,7 +13,7 @@ export default function FavIcon({ coin }: any) {
   });
 
   return (
-    <div className="absolute left-[0.4px] top-[19px] cursor-pointer">
+    <div className=" ">
       {isFav ? (
         <img
           className=" w-4"

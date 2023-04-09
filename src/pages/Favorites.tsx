@@ -18,6 +18,9 @@ export default function Favorites() {
         <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
+            <th scope="col" className="px-6 py-3">
+                
+              </th>
               <th scope="col" className="px-6 py-3">
                 #
               </th>
