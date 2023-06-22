@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../App";
-import CoinTableRow from "../components/CoinTableRow";
-import PageBtns from "../components/PageBtns";
-import PageTitle from "../components/PageTitle";
-import SearchBar from "../components/SearchBar";
-import CoinsTable from "../components/CoinsTable";
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../App';
+import CoinTableRow from '../components/CoinTableRow';
+import PageBtns from '../components/PageBtns';
+import PageTitle from '../components/PageTitle';
+import SearchBar from '../components/SearchBar';
+import CoinsTable from '../components/CoinsTable';
 
 export default function CoinsPage() {
   const appContext = useContext(AppContext);
@@ -40,13 +40,13 @@ export default function CoinsPage() {
 
   return (
     <>
-      <section className="space-y-8" id="section-top">
+      <section className='space-y-8' id='section-top'>
         <PageTitle> Cryptocurrency Prices By Current Market Cap</PageTitle>
 
-        <SearchBar displayPage={displayPage} target={"coins"} />
+        <SearchBar displayPage={displayPage} target={'coins'} />
       </section>
 
-      <CoinsTable children={coinRowElems}/>
+      <CoinsTable children={coinRowElems} />
 
       <PageBtns
         currentList={currentCoins}
