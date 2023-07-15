@@ -33,8 +33,8 @@ export default function ExchangesPage() {
   }, [appContext?.exchangesList]);
 
   let ExchangeRowElems = displayedExchanges.map((exc: any) => {
-    if (exc === undefined) return;
-    return <ExchangeTableRow exc={exc} />;
+    if (exc == undefined || Object.keys(exc).length < 1) return;
+    return <ExchangeTableRow exc={exc} key={exc.id} />;
   });
 
   return (

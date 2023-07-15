@@ -1,6 +1,4 @@
-import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppContext, AppContextType } from "../App";
 import { formatNum } from "../util/nums";
 import FavIcon from "./FavIcon";
 import TimeTd from "./TimeTd";
@@ -8,12 +6,12 @@ import TimeTd from "./TimeTd";
 export default function CoinTableRow({ coin }: any) {
   return (
     <tr className="border-b bg-white hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-600">
-       <th scope="row" className=" items-center px-4 py-4 font-medium ">
+      <td scope="row" className=" items-center px-4 py-4 font-medium ">
         <FavIcon coin={coin} />
-      </th>
-      <th scope="row" className=" items-center px-6 py-4 font-medium">
+      </td>
+      <td scope="row" className=" items-center px-6 py-4 font-medium">
         {coin.market_cap_rank}
-      </th>
+      </td>
       <td className="px-6 py-4 font-semibold tracking-wide">
         <Link className="flex items-center gap-2" to={"/coin/" + coin.id}>
           <img className="w-6" src={coin.image} alt="" /> {coin.name}

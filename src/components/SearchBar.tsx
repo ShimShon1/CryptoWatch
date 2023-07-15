@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
-import { AppContext, AppContextType } from "../App";
+import { AppContext } from "../App";
 import searchIcon from "../assets/icons/search.svg";
-type SearchBarPropsType = {
+type SearchBarProps = {
   displayPage: (num?: number, arr?: object[]) => void;
   target: string;
 };
-export default function SearchBar({ displayPage, target }: SearchBarPropsType) {
+export default function SearchBar({ displayPage, target }: SearchBarProps) {
   const [searchText, setSearchText] = useState("");
   const appContext = useContext(AppContext);
   if (appContext == undefined) return <h1>Something Went Wrong</h1>;
