@@ -15,19 +15,17 @@ export default function FavIcon({ coin }: any) {
   return (
     <div className="cursor-pointer ">
       {isFav ? (
-        <img
-          className=" w-4"
-          src={favGold}
-          alt=""
-          onClick={() => context.removeFromFavs(coin)}
-        />
+        <button onClick={() => context.removeFromFavs(coin)}>
+          <img className=" w-4" src={favGold} alt="" />
+        </button>
       ) : (
-        <img
-          className=" w-4"
-          src={context.isDark ? favDark : favLight}
-          alt=""
-          onClick={() => context.addToFavs(coin)}
-        />
+        <button onClick={() => context.addToFavs(coin)}>
+          <img
+            className=" w-4"
+            src={context.isDark ? favDark : favLight}
+            alt=""
+          />
+        </button>
       )}
     </div>
   );

@@ -26,7 +26,9 @@ export default function Nav({ setIsDark }: navProps) {
             src={isDark ? logoDark : logoLight}
             className="h-10 w-8 lg:h-12 lg:w-10"
           />
-          <h1 className="comf text-xl font-bold lg:text-2xl">CryptoWatch</h1>
+          <h1 className="comf text-xl font-bold lg:text-2xl">
+            CryptoWatch
+          </h1>
         </div>
       </Link>
 
@@ -75,13 +77,14 @@ export default function Nav({ setIsDark }: navProps) {
           <Link to={"/favorites"} className="inline-block p-0 ">
             <img src={isDark ? favDark : favLight} alt="" />
           </Link>
-          <img
-            tabIndex={0}
-            className="mode cursor-pointer"
-            onClick={() => setIsDark(!isDark)}
-            src={isDark ? themeIconDark : themeIconLight}
-            alt="mode change icon"
-          />
+          <button onClick={() => setIsDark(!isDark)}>
+            <img
+              tabIndex={0}
+              className="mode cursor-pointer"
+              src={isDark ? themeIconDark : themeIconLight}
+              alt="mode change icon"
+            />
+          </button>
         </li>
       </ul>
     </nav>

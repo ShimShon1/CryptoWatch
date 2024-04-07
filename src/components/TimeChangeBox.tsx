@@ -6,7 +6,10 @@ type TimeChangeBoxProps = {
   children: React.ReactNode;
 };
 
-export default function TimeChangeBox({ num, children }: TimeChangeBoxProps) {
+export default function TimeChangeBox({
+  num,
+  children,
+}: TimeChangeBoxProps) {
   return (
     <div
       className="flex w-full flex-col gap-2 rounded-sm border-r

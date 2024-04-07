@@ -41,12 +41,12 @@ export default function App() {
           "https://api.coingecko.com/api/v3/exchanges?per_page=250",
         ];
 
-        const promises = urls.map((url) =>
+        const promises = urls.map(url =>
           fetch(url, {
             method: "GET",
             mode: "cors",
             headers: {},
-          }).then((response) => response.json())
+          }).then(response => response.json())
         );
         const data = await Promise.all(promises);
 
@@ -72,8 +72,8 @@ export default function App() {
   }, [isDark]);
   return (
     <div
-      className="min-h-screen  max-w-full bg-gradient-to-b  from-white to-slate-300 text-blue-950
-     dark:from-slate-900  dark:to-slate-950 dark:text-gray-200	"
+      className="min-h-screen max-w-full bg-gradient-to-b from-white  to-slate-300 text-blue-950 dark:from-slate-900
+     dark:to-slate-950   dark:text-gray-200	"
     >
       <AppContext.Provider
         value={{
