@@ -6,7 +6,10 @@ type SearchBarProps = {
   displayPage: (num?: number, arr?: object[]) => void;
   target: string;
 };
-export default function SearchBar({ displayPage, target }: SearchBarProps) {
+export default function SearchBar({
+  displayPage,
+  target,
+}: SearchBarProps) {
   const [searchText, setSearchText] = useState("");
   const appContext = useContext(AppContext);
   if (appContext == undefined) return <h1>Something Went Wrong</h1>;
@@ -28,18 +31,16 @@ export default function SearchBar({ displayPage, target }: SearchBarProps) {
   }
   return (
     <label className=" relative ">
-      <img
-        className="absolute left-2 w-5 translate-y-2.5 transform  opacity-40"
-        src={searchIcon}
-        alt=""
-      />
+      <div className="absolute bottom-0.5 left-2 flex items-center">
+        <img className=" w-5   opacity-40" src={searchIcon} alt="" />
+      </div>
       <input
         type="text"
         placeholder="Search"
         className={`w-full rounded-md bg-slate-100 bg-left p-2 indent-6  dark:bg-slate-500 dark:placeholder-gray-50 md:text-lg
        
     `}
-        onChange={(e) => handleChange(e)}
+        onChange={e => handleChange(e)}
         value={searchText}
       />
     </label>
