@@ -4,20 +4,17 @@ import { AppContext } from "../App";
 import searchIcon from "../assets/icons/search.svg";
 type SearchBarProps = {
   displayPage: (num?: number, arr?: object[]) => void;
-  target: string;
+  itemsList: any[];
 };
 export default function SearchBar({
   displayPage,
-  target,
+  itemsList,
 }: SearchBarProps) {
   const [searchText, setSearchText] = useState("");
   const appContext = useContext(AppContext);
   if (appContext == undefined) return <h1>Something Went Wrong</h1>;
 
-  let originArr: object[];
-  target == "coins"
-    ? (originArr = appContext.coinsList)
-    : (originArr = appContext.exchangesList);
+  let originArr = itemsList;
 
   let path = useParams();
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {

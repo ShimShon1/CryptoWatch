@@ -5,6 +5,7 @@ import PageTitle from "../components/PageTitle";
 import SearchBar from "../components/SearchBar";
 import CoinsTable from "../components/CoinsTable";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../components/Loading";
 
 export default function CoinsPage() {
   const [displayedCoins, setDisplayedCoins] = useState([{}]);
@@ -14,16 +15,18 @@ export default function CoinsPage() {
     data: coinsList,
     isError,
     isLoading,
+    error,
   } = useQuery({
     queryKey: ["coins"],
     queryFn: loadCoins,
+    staleTime: 1000 * 60 * 20,
   });
-  function displayPage(num = 50, arr = [], page = 1) {
+  function displayPage(num = 50, arr = coinsList, page = 1) {
     setCurrentPage(page);
     arr && setCurrentCoins(arr);
     let start = 50 * (page - 1);
     let end = (num >= 50 ? 50 : num) * page;
-    let newDisplayList: any[] = coinsList || [];
+    let newDisplayList = [];
     for (let i = start; i < end; i++) {
       arr !== undefined && newDisplayList.push(arr[i]);
     }
@@ -32,7 +35,15 @@ export default function CoinsPage() {
   //initialaize first 50 coins
   useEffect(() => {
     displayPage();
-  }, []);
+  }, [coinsList]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <p className="text-2xl ">{error.message}</p>;
+  }
 
   let coinRowElems = displayedCoins.map((coin: any, i) => {
     if (coin == undefined || Object.keys(coin).length < 1) return;
@@ -47,7 +58,7 @@ export default function CoinsPage() {
           Cryptocurrency Prices By Current Market Cap
         </PageTitle>
 
-        <SearchBar displayPage={displayPage} target={"coins"} />
+        <SearchBar displayPage={displayPage} itemsList={coinsList} />
       </section>
 
       <CoinsTable children={coinRowElems} />
@@ -62,12 +73,25 @@ export default function CoinsPage() {
 }
 
 async function loadCoins() {
-  const endPoint =
-    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en";
-  const response = await fetch(endPoint, {
-    method: "GET",
-    mode: "cors",
-  });
+  console.log("fetching");
+  try {
+    const endPoint =
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en";
+    const response = await fetch(endPoint, {
+      method: "GET",
+      mode: "cors",
+    });
 
-  return response.json();
+    if (response.status == 200 || response.status == 201) {
+      return response.json();
+    } else {
+      throw new Error(
+        "Error. Refresh the page or try at a different time."
+      );
+    }
+  } catch (error) {
+    throw new Error(
+      "Error. Refresh the page or try at a different time."
+    );
+  }
 }
