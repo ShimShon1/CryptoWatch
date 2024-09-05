@@ -17,7 +17,7 @@ export default function App() {
   const [favsList, setFavsList] = useState([
     ...(JSON.parse(localStorage.getItem("favs")!) || []),
   ]);
-  const [coinsList, exchangesList] = useGetData();
+  const [exchangesList] = useGetData();
   function addToFavs(coin: any) {
     let newFavs = [...favsList, coin];
     localStorage.setItem("favs", JSON.stringify(newFavs));
@@ -50,7 +50,6 @@ export default function App() {
       <AppContext.Provider
         value={{
           isDark: isDark,
-          coinsList: coinsList,
           exchangesList: exchangesList,
           addToFavs: addToFavs,
           favsList: favsList,
@@ -65,7 +64,6 @@ export default function App() {
             <Route path="/" element={<CoinsPage />} />
             <Route path="/exchanges" element={<ExchangesPage />} />
             <Route path="/favorites" element={<Favorites />} />
-
             <Route path="/coin/:id" element={<SingleCoinPage />} />
           </Routes>
         </main>
@@ -77,30 +75,25 @@ function useGetData() {
   const [coinsList, setCoinsList] = useState([{}]);
   const [exchangesList, setExchangesList] = useState([{}]);
   useEffect(() => {
-    console.log("runnin");
     getData();
   }, []);
   async function getData() {
     try {
-      const urls = [
-        "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=250&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d%2C30d&locale=en",
-        "https://api.coingecko.com/api/v3/exchanges?per_page=250",
-      ];
+      const endPoint =
+        "https://api.coingecko.com/api/v3/exchanges?per_page=250";
 
-      const promises = urls.map(url =>
-        fetch(url, {
-          method: "GET",
-          mode: "cors",
-          headers: {},
-        }).then(response => response.json())
-      );
-      const data = await Promise.all(promises);
+      const response = await fetch(endPoint, {
+        method: "GET",
+        mode: "cors",
+        headers: {},
+      });
 
-      setCoinsList(data[0]);
-      setExchangesList(data[1]);
+      const data = await response.json();
+
+      setExchangesList(data);
     } catch (e) {
       console.error(e);
     }
   }
-  return [coinsList, exchangesList];
+  return [exchangesList];
 }
