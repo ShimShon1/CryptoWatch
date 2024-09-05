@@ -1,27 +1,29 @@
 import { useContext, useEffect, useState } from "react";
-import { AppContext } from "../App";
 import PageBtns from "../components/PageBtns";
 import PageTitle from "../components/PageTitle";
 import SearchBar from "../components/SearchBar";
 import ExchangeTableRow from "../components/ExchangeTableRow";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "../components/Loading";
 
 export default function ExchangesPage() {
-  const appContext = useContext(AppContext);
   const [displayedExchanges, setDisplayedExchanges]: any = useState([
     {},
   ]);
   const [currentExchanges, setCurrentExchanges]: any = useState([{}]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  function flipPage(page: number) {
-    displayPage(currentExchanges.length, currentExchanges, page);
-  }
-
-  function displayPage(
-    num = 50,
-    arr = appContext?.exchangesList,
-    page = 1
-  ) {
+  const {
+    data: exchangesList,
+    isError,
+    error,
+    isLoading,
+  } = useQuery({
+    queryFn: loadExchanges,
+    queryKey: ["exchanges"],
+    staleTime: 1000 * 60 * 20,
+  });
+  function displayPage(num = 50, arr = exchangesList, page = 1) {
     setCurrentPage(page);
     arr && setCurrentExchanges(arr);
     let start = 50 * (page - 1);
@@ -36,12 +38,20 @@ export default function ExchangesPage() {
   //initialaize first 50 exchanges
   useEffect(() => {
     displayPage();
-  }, [appContext?.exchangesList]);
+  }, [exchangesList]);
 
   let ExchangeRowElems = displayedExchanges.map((exc: any) => {
     if (exc == undefined || Object.keys(exc).length < 1) return;
     return <ExchangeTableRow exc={exc} key={exc.id} />;
   });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <p className="text-2xl ">{error.message}</p>;
+  }
 
   return (
     <>
@@ -51,7 +61,10 @@ export default function ExchangesPage() {
           Top Crypto Exchanges Ranked By Trust Score
         </PageTitle>
 
-        <SearchBar displayPage={displayPage} itemsList={[]} />
+        <SearchBar
+          displayPage={displayPage}
+          itemsList={exchangesList}
+        />
       </section>
 
       <div
@@ -91,4 +104,29 @@ export default function ExchangesPage() {
       />
     </>
   );
+}
+
+async function loadExchanges() {
+  console.log("fetching");
+  try {
+    const endPoint =
+      "https://api.coingecko.com/api/v3/exchanges?per_page=250";
+
+    const response = await fetch(endPoint, {
+      method: "GET",
+      mode: "cors",
+    });
+
+    if (response.status == 200 || response.status == 201) {
+      return response.json();
+    } else {
+      throw new Error(
+        "Error. Refresh the page or try at a different time."
+      );
+    }
+  } catch (error) {
+    throw new Error(
+      "Error. Refresh the page or try at a different time."
+    );
+  }
 }

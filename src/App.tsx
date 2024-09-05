@@ -17,7 +17,6 @@ export default function App() {
   const [favsList, setFavsList] = useState([
     ...(JSON.parse(localStorage.getItem("favs")!) || []),
   ]);
-  const [exchangesList] = useGetData();
   function addToFavs(coin: any) {
     let newFavs = [...favsList, coin];
     localStorage.setItem("favs", JSON.stringify(newFavs));
@@ -50,7 +49,6 @@ export default function App() {
       <AppContext.Provider
         value={{
           isDark: isDark,
-          exchangesList: exchangesList,
           addToFavs: addToFavs,
           favsList: favsList,
           removeFromFavs: removeFromFavs,
@@ -70,30 +68,4 @@ export default function App() {
       </AppContext.Provider>
     </div>
   );
-}
-function useGetData() {
-  const [coinsList, setCoinsList] = useState([{}]);
-  const [exchangesList, setExchangesList] = useState([{}]);
-  useEffect(() => {
-    getData();
-  }, []);
-  async function getData() {
-    try {
-      const endPoint =
-        "https://api.coingecko.com/api/v3/exchanges?per_page=250";
-
-      const response = await fetch(endPoint, {
-        method: "GET",
-        mode: "cors",
-        headers: {},
-      });
-
-      const data = await response.json();
-
-      setExchangesList(data);
-    } catch (e) {
-      console.error(e);
-    }
-  }
-  return [exchangesList];
 }
