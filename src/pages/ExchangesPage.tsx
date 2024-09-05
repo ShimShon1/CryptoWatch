@@ -7,7 +7,9 @@ import ExchangeTableRow from "../components/ExchangeTableRow";
 
 export default function ExchangesPage() {
   const appContext = useContext(AppContext);
-  const [displayedExchanges, setDisplayedExchanges]: any = useState([{}]);
+  const [displayedExchanges, setDisplayedExchanges]: any = useState([
+    {},
+  ]);
   const [currentExchanges, setCurrentExchanges]: any = useState([{}]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -15,7 +17,11 @@ export default function ExchangesPage() {
     displayPage(currentExchanges.length, currentExchanges, page);
   }
 
-  function displayPage(num = 50, arr = appContext?.exchangesList, page = 1) {
+  function displayPage(
+    num = 50,
+    arr = appContext?.exchangesList,
+    page = 1
+  ) {
     setCurrentPage(page);
     arr && setCurrentExchanges(arr);
     let start = 50 * (page - 1);
@@ -40,12 +46,18 @@ export default function ExchangesPage() {
   return (
     <>
       <section className="space-y-8" id="section-top">
-        <PageTitle> Top Crypto Exchanges Ranked By Trust Score</PageTitle>
+        <PageTitle>
+          {" "}
+          Top Crypto Exchanges Ranked By Trust Score
+        </PageTitle>
 
-        <SearchBar displayPage={displayPage} target="exchanges" />
+        <SearchBar displayPage={displayPage} itemsList={[]} />
       </section>
 
-      <div className="relative mt-6 w-full overflow-x-auto" id="table">
+      <div
+        className="relative mt-6 w-full overflow-x-auto"
+        id="table"
+      >
         <table className="w-full text-left text-sm  ">
           <thead className="bg-gray-50 text-xs uppercase  dark:bg-gray-700 ">
             <tr>
